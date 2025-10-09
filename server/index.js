@@ -25,8 +25,14 @@ app.post('/api/sentiment', async (req, res) => {
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         messages: [
-          { role: 'system', content: 'Analyze the sentiment of this message.' },
-          { role: 'user', content: message },
+          { role: 'system', content: 'You are an AI assistant that listens to meetings and creates clear, actionable next steps for participants. Given a meeting transcript, extract and summarize all action items with assigned people, deadlines (if mentioned), and concise descriptions.' },
+          { role: 'user', content: `Extract all action items from this meeting transcript and return them in JSON format like this:
+              [
+                { "task": "Follow up with marketing team", "assignee": "John", "deadline": "Friday" },
+                { "task": "Prepare budget proposal", "assignee": "Sarah", "deadline": "next week" }
+              ]
+              \n\nTranscript:\n${message}` 
+          },
         ],
       }),
     })

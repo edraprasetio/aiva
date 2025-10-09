@@ -28,7 +28,7 @@ export const Home = () => {
                 <h1>TARI</h1>
                 <textarea onChange={(e) => setMessage(e.target.value)} placeholder='Paste your message here' />
                 <MediumBlackButton onClick={callOpenAI}>Get the sentiment from OpenAI API</MediumBlackButton>
-                {sentiment !== '' ? <h3>This message is: {sentiment}</h3> : null}
+                {sentiment !== '' ? <p>This message is: {sentiment}</p> : null}
             </Background>
         </div>
     )

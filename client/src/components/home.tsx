@@ -14,4 +14,9 @@ export const Background = styled.div`
         font-family: RobotoMono-Light;
         font-size: 20px;
     }
+
+    p {
+        font-family: Assistant-Regular;
+        font-size: 14px;
+    }
 `
