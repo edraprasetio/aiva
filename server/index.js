@@ -23,15 +23,26 @@ app.post('/api/sentiment', async (req, res) => {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          { role: 'system', content: 'You are an AI assistant that listens to meetings and creates clear, actionable next steps for participants. Given a meeting transcript, extract and summarize all action items with assigned people, deadlines (if mentioned), and concise descriptions.' },
-          { role: 'user', content: `Extract all action items from this meeting transcript and return them in JSON format like this:
-              [
-                { "task": "Follow up with marketing team", "assignee": "John", "deadline": "Friday" },
-                { "task": "Prepare budget proposal", "assignee": "Sarah", "deadline": "next week" }
-              ]
-              \n\nTranscript:\n${message}` 
+      model: 'gpt-4o-mini',
+      messages: [
+          {
+            role: 'system',
+            content:
+              'You are an AI assistant that listens to meeting transcripts and produces two things: (1) a concise summary, and (2) a clear list of actionable next steps for participants. Always return valid JSON only.',
+          },
+          {
+            role: 'user',
+            content: `Given the following meeting transcript, return a JSON object with this format:
+      {
+        "summary": "A few sentences summarizing the main discussion points.",
+        "action_items": [
+          { "task": "Follow up with marketing team", "assignee": "John", "deadline": "Friday" },
+          { "task": "Prepare budget proposal", "assignee": "Sarah", "deadline": "next week" }
+        ]
+      }
+
+      Transcript:
+      ${message}`,
           },
         ],
       }),
